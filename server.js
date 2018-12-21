@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 
-const Port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 //Get DOM with axios, store DOM with cheerio 
 const axios = require("axios");
@@ -24,6 +24,6 @@ const routeControl = require("./controllers/scrappycontroller.js");
 app.use(routeControl);
 
 //start server.
-app.listen(Port, ()=> {
-    console.log("Listening on " + Port);
+app.listen(PORT, function() {
+    console.log("Listening on " + PORT);
 });
