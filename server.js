@@ -5,9 +5,6 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
 
-//Get DOM with axios, store DOM with cheerio 
-const axios = require("axios");
-const cheerio = require("cheerio");
 //const db = require("./models");
 
 app.use(express.urlencoded({ extended: true}));
