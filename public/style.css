@@ -1,0 +1,10 @@
+.banner {
+    background-image: url("./johann-walter-bantz-198041-unsplash.jpg");
+    background-size: cover;
+    height: 440px;
+    font-family: 'Anton', sans-serif;
+}
+
+.headline {
+    background-image: linear-gradient(to right, rgba(255,255,255,255), rgba(0,0,0,0)); 
+}

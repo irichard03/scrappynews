@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require('path');
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
@@ -11,7 +12,6 @@ const cheerio = require("cheerio");
 
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
-app.use(express.static("public"));
 //mongoose.connect("mongodb://localhost:27017/scrappynews", { useNewUrlParser: true});
 
 //handlebars
@@ -22,6 +22,9 @@ app.set("view engine", "handlebars");
 //Default routeControl is controller.
 const routeControl = require("./controllers/scrappycontroller.js");
 app.use(routeControl);
+
+//public folder
+app.use(express.static(path.join(__dirname,"./public")));
 
 //start server.
 app.listen(PORT, function() {
