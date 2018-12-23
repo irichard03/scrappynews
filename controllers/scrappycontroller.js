@@ -3,30 +3,47 @@ const router = express.Router();
 const axios = require("axios");
 const cheerio = require("cheerio");
 const articleArray = [];
-
-//TODO import model here.
+const db = require("../models");
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost:27017/scrappynews", {useNewUrlParser: true});
 
 router.get("/scraper", function (req,res) {
    
     axios.get("https://www.chron.com/news/houston-texas/").then(function(response) {
-    // Then, we load that into cheerio and save it to $ for a shorthand selector
+    //get news
     const $ = cheerio.load(response.data);
-    $("a").each(function(i, element){
-       let result = $(this).children().text();
-       if(result){
-        console.log(result);
-       }
-    });
-});
-   
+        $("a").each(function(i, element){
+            let result = {};                                    //object to store what I want
+            let trash = {};                                     //object to store what I don't
+            trash.schrodingerHeadline = $(this).text();         //some headlines are note for articles
+            trash.chronURL = "https://www.chron.com";           //links are routes, not full urls
+            trash.schrodingerLink = $(this).attr("href");       //some links are not articles
 
+            if(trash.schrodingerHeadline && trash.schrodingerLink) {        //eliminate blank lines
+                let subString = "/article/";                                
+                if(trash.schrodingerLink.includes(subString)){              //filter only articles
+                    result.headline = trash.schrodingerHeadline.trim();     //trim new lines and spaces
+                    result.link = trash.chronURL + trash.schrodingerLink;   //build valid url using chron.com's root and route.
+                    if(articleArray.length <= 20) {                         
+                        articleArray.push(result);                          //only load first 20 articles
+                    }
+                }
+            }
+        });
+    }); //end axios.get
 
-});
+    for(let i = 0; i < articleArray.length; i++){
+        db.article.create(articleArray[i]).then(function(data){
+            console.log(data);
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+
+}); //end router.get
 
 router.get("/", async (req,res) => {
     await res.render("index");
 });
-
-
 
 module.exports = router;
