@@ -30,9 +30,9 @@ $(function(){
     });
 
     $("#delete").click(function(event){
+        let rowID = $(this).attr("data-id");
         event.preventDefault();
-        $("div").attr("data-id");x
-        
+        $(`div[data-id="${rowID}"]`).remove();
     });
 
 });

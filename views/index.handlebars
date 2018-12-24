@@ -33,7 +33,7 @@
 <section class="display">
     <div class="container">
         {{#each article}}
-        <div class="row" id={{_id}}>
+        <div class="row" data-id={{_id}}>
             <div class="col-sm-6">
                 <div class="bg-warning text-dark mt-4 pl-2">
                     <h5>{{headline}}</h5>
@@ -51,8 +51,8 @@
                 </div>
             </div>
             <div class="col-sm-2">
-                <button type="button" class="btn mt-4  btn-success" id="save" data-id={{id}}>save</button>
-                <button type="button" class="btn mt-4  btn-danger" id="delete" data-id={{id}}>remove</button>
+                <button type="button" class="btn mt-4  btn-success" id="save" data-id={{_id}}>save</button>
+                <button type="button" class="btn mt-4  btn-danger" id="delete" data-id={{_id}}>remove</button>
             </div>
         </div>
         {{/each}}
