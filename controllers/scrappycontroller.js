@@ -45,6 +45,18 @@ router.get("/scraper", function (req,res) {
 
 }); //end router.get
 
+router.post("/api/addnote/:id", function(req,res) {
+    db.note.create(req.body).then(function(data) {
+       console.log(req.params.id);
+        return db.article.findOneAndUpdate({ _id: req.params.id }, { note: data._id }, {new: true});
+    }).then(function(data){
+        res.json(data);
+    }).catch(function(err) {
+        res.json(err);
+    });
+});
+
+
 router.get("/", function(req,res) {
     db.article.find({}).then(function(data) {
         res.render("index", {article: data});

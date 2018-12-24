@@ -43,8 +43,10 @@
             <div class="col-sm-4">
                 <div class="bg-primary text-white mt-4 pl-2">
                     <div class="form-group">
+                        <label for=commentBoxTitle>Title</label>
+                        <input type="text" class="form-control" id="title" data-id={{_id}}></textbox>
                         <label for="commentBox">Note</label>
-                        <textarea class="form-control" id="comment{{_id}}" rows="2"></textarea>
+                        <textarea class="form-control" id="note" data-id={{_id}} rows="2"></textarea>
                     </div>
                 </div>
             </div>
