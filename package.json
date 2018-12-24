@@ -1,0 +1,14 @@
+{
+  "name": "scrappynews",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/irichard03/scrappynews.git",
+  "author": "Ian Richard <ianrichard03@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.4.0",
+    "morgan": "^1.9.1",
+    "node": "^11.5.0"
+  }
+}
