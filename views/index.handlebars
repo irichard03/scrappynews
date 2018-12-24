@@ -2,58 +2,77 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <a class="navbar-brand text-white" href="#">SCRAPPYNEWS</a>
     <ul class="nav nav-pills bg-danger">
-        <li class="nav-item active">
-            <button class="btn btn-danger text-white" id="scraper" href="scraper" data-toggle="modal" data-target="#scrapeModal">SCRAPE <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+            <button class="btn btn-danger text-white" id="scraper" href="scraper" data-toggle="modal" data-target="#scrapeModal">SCRAPE</button>
         </li>
     </ul>
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link text-white" href="https://github.com/irichard03/scrappynews"><i class="fab fa-github">GitHub</i><span class="sr-only">(current)</span></a>
+            <button class="btn btn-success text-white" id="retriever" href="retreiver"  data-toggle="modal" data-target="#retrieveModal">RETREIVE</button>
+        </li>
+    </ul>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link text-white" href="https://github.com/irichard03/scrappynews"><i class="fab fa-github">GitHub</i><span
+                    class="sr-only">(current)</span></a>
         </li>
     </ul>
 </nav>
 <!--banner-->
 <div class="jumbotron jumbotron-fluid banner">
-  <div class="container title">
-    <h1 class="display-4 text-danger bolder headline">Houston Chronicle Headlines</h1>
-  </div>
+    <div class="container title">
+        <h1 class="display-4 text-danger bolder headline">Houston Chronicle Headlines</h1>
+    </div>
 </div>
 
-<!--<img src="/nose.png" class="killroy">
+<div class="instructions">
+        <h5>Instructions: Click Scrape button to get articles, click Saved Articles button to display articles</h5>
+    </div>
+
 <!--scraped articles-->
-<section>
+<section class="display">
     <div class="container">
-        <div class="row">
-            <div class="col-sm">
+        {{#each article}}
+        <div class="row" id={{_id}}>
+            <div class="col-sm-6">
                 <div class="bg-warning text-dark mt-4 pl-2">
-                    <h2>Article</h2>
-                    <p>Note</p>
+                    <h5>{{headline}}</h5>
+                    <a href={{link}}>Go to article</a>
                 </div>
             </div>
-            <div class="col-sm">
-                <div class="bg-danger text-white mt-4 pl-2">
-                    <h2>Comment</h2>
-                    <p>Note</p>
+            <div class="col-sm-4">
+                <div class="bg-primary text-white mt-4 pl-2">
+                    <div class="form-group">
+                        <label for="commentBox">Note</label>
+                        <textarea class="form-control" id="comment{{_id}}" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn mt-4  btn-success" id="save" data-id={{id}}>save</button>
+                <button type="button" class="btn mt-4  btn-danger" id="delete" data-id={{id}}>remove</button>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</section>
+
+
+
+<!--Modal-->
+<div class="modal fade" id="scrapeModal" tabindex="-1" role="dialog" aria-labelledby="scrapeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-white text-black">
+                Scraped 20 articles from <a href="https://www.chron.com">The Houston Chronicle.</a>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-</section>
-
-<!--Modal-->
-<div class="modal fade" id="scrapeModal" tabindex="-1" role="dialog" aria-labelledby="scrapeModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body bg-white text-black">
-        Scraped 20 articles from <a href="https://www.chron.com">The Houston Chronicle.</a>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>

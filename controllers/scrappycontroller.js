@@ -3,9 +3,12 @@ const router = express.Router();
 const axios = require("axios");
 const cheerio = require("cheerio");
 const articleArray = [];
+
 const db = require("../models");
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/scrappynews", {useNewUrlParser: true});
+
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/scrappynews";
+mongoose.connect(MONGODB_URI);
 
 router.get("/scraper", function (req,res) {
    
@@ -29,12 +32,12 @@ router.get("/scraper", function (req,res) {
                     }
                 }
             }
-        });
+        }); 
     }); //end axios.get
 
+    //write to the database.
     for(let i = 0; i < articleArray.length; i++){
         db.article.create(articleArray[i]).then(function(data){
-            console.log(data);
         }).catch(function(error) {
             console.log(error);
         });
@@ -42,8 +45,12 @@ router.get("/scraper", function (req,res) {
 
 }); //end router.get
 
-router.get("/", async (req,res) => {
-    await res.render("index");
+router.get("/", function(req,res) {
+    db.article.find({}).then(function(data) {
+        res.render("index", {article: data});
+    }).catch(function(error){
+        res.json(error);
+    }); 
 });
 
 module.exports = router;
